@@ -11,6 +11,9 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
+    var locations = [Locations]()
+    var annotations = [MKPointAnnotation]()
+    
     @IBOutlet weak var Map: MKMapView!
 
 
@@ -28,6 +31,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        getStudentsPins()
+    }
+    
     // logout function
     func handleLogoutRequest(success: Bool, error: Error?) {
         if success { // if deleting the session works, dismiss the screen
@@ -42,47 +50,40 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func logout(_ sender: Any) {
         UdacityClient.logout(completion: self.handleLogoutRequest(success:error:))
     }
-    func getStudentsPins() {
-        // The "locations" array is an array of dictionary objects that are similar to the JSON
-        // data that you can download from parse.
-        let locations = [Locations]()
-        
-        // We will create an MKPointAnnotation for each dictionary in "locations". The
-        // point annotations will be stored in this array, and then provided to the map view.
-        var annotations = [MKPointAnnotation]()
-        
-        // The "locations" array is loaded with the sample data below. We are using the dictionaries
-        // to create map annotations. This would be more stylish if the dictionaries were being
-        // used to create custom structs. Perhaps StudentLocation structs.
-        
-        for dictionary in locations {
-            
-            // Notice that the float values are being used to create CLLocationDegree values.
-            // This is a version of the Double type.
-            let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-            let long = CLLocationDegrees(dictionary["longitude"] as! Double)
-            
-            // The lat and long are used to create a CLLocationCoordinates2D instance.
-            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            
-            let first = dictionary["firstName"] as! String
-            let last = dictionary["lastName"] as! String
-            let mediaURL = dictionary["mediaURL"] as! String
-            
-            // Here we create the annotation and set its coordiate, title, and subtitle properties
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            annotation.title = "\(first) \(last)"
-            annotation.subtitle = mediaURL
-            
-            // Finally we place the annotation in an array of annotations.
-            annotations.append(annotation)
-        }
-        
-        // When the array is complete, we add the annotations to the map.
-        self.mapView.addAnnotations(annotations)
-        
+    
+    
+    class StudentsLocationArray {
+        static var students = [Locations]()
     }
+    func getStudentsPins() {
+        let annotations = [MKPointAnnotation]()
+        for student in StudentsLocationArray.students {
+          let pin = MKPointAnnotation()
+          pin.title = student.firstName ?? ""
+          pin.subtitle = student.mediaURL ?? ""
+          pin.coordinate = CLLocationCoordinate2D(latitude: student.latitude ?? 0.0, longitude: student.longitude ?? 0.0)
+            self.Map.addAnnotation(pin)
+        }
+        DispatchQueue.main.async {
+                   self.Map.removeAnnotations(self.Map.annotations)
+                   self.Map.addAnnotations(annotations)
+                   UIApplication.shared.endIgnoringInteractionEvents()
+                   self.view.alpha = 1.0
+               }
+    }
+    
+    func generateMap() {
+        DataClient.getStudentLocations { (locations, error) in
+            if error == nil {
+                DispatchQueue.main.async {
+                    self.getStudentsPins()
+                }
+            } else {
+                self.showAlertAction(title:"Error", message: "Please try again.")
+            }
+        }
+    }
+    
     // MARK: Map view data source
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -110,3 +111,4 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
 
 }
+
