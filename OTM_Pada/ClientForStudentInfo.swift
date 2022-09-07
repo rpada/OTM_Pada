@@ -19,16 +19,10 @@ class DataClient {
         static let base = "https://onthemap-api.udacity.com/v1/"
 
         case studentLocations
-        case postStudentLocation
-        case putStudentLocation(String)
-        case getPublicUserData(Int)
         var urlValue: String {
             switch self {
     
             case .studentLocations: return Endpoints.base + "StudentLocation?limit=100&order=-updatedAt"
-            case .postStudentLocation: return Endpoints.base + "StudentLocation"
-            case .putStudentLocation(let objectId): return Endpoints.base + "StudentLocation/" + objectId
-            case .getPublicUserData(let userId): return Endpoints.base + "users/\(userId)"
             }
         }
         
