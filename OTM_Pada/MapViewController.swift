@@ -33,7 +33,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        getStudentsPins()
+        generateMap()
     }
     
     // logout function
@@ -64,12 +64,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
           pin.coordinate = CLLocationCoordinate2D(latitude: student.latitude ?? 0.0, longitude: student.longitude ?? 0.0)
             self.Map.addAnnotation(pin)
         }
-        DispatchQueue.main.async {
-                   self.Map.removeAnnotations(self.Map.annotations)
-                   self.Map.addAnnotations(annotations)
-                   UIApplication.shared.endIgnoringInteractionEvents()
-                   self.view.alpha = 1.0
-               }
     }
     
     func generateMap() {
