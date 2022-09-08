@@ -21,6 +21,9 @@
 		A569CF1328C6CD2700BDE7C4 /* DataFromUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1228C6CD2700BDE7C4 /* DataFromUsers.swift */; };
 		A569CF1528C6E9FA00BDE7C4 /* StudentLocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1428C6E9FA00BDE7C4 /* StudentLocationData.swift */; };
 		A569CF1728C714B400BDE7C4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1628C714B400BDE7C4 /* MapViewController.swift */; };
+		A569CF1928C9679700BDE7C4 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1828C9679700BDE7C4 /* AddViewController.swift */; };
+		A569CF1B28C96CE200BDE7C4 /* PostedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1A28C96CE200BDE7C4 /* PostedLocation.swift */; };
+		A569CF1D28C975B700BDE7C4 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1C28C975B700BDE7C4 /* ConfirmViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		A569CF1228C6CD2700BDE7C4 /* DataFromUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFromUsers.swift; sourceTree = "<group>"; };
 		A569CF1428C6E9FA00BDE7C4 /* StudentLocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationData.swift; sourceTree = "<group>"; };
 		A569CF1628C714B400BDE7C4 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		A569CF1828C9679700BDE7C4 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		A569CF1A28C96CE200BDE7C4 /* PostedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostedLocation.swift; sourceTree = "<group>"; };
+		A569CF1C28C975B700BDE7C4 /* ConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,10 +84,13 @@
 				A569CF0728C304FC00BDE7C4 /* ClientForUdacityLogin.swift */,
 				A569CF1028C6BC4600BDE7C4 /* Locations.swift */,
 				A569CF0E28C6B93900BDE7C4 /* ClientForStudentInfo.swift */,
+				A569CF1A28C96CE200BDE7C4 /* PostedLocation.swift */,
 				A569CF1628C714B400BDE7C4 /* MapViewController.swift */,
 				A569CF1228C6CD2700BDE7C4 /* DataFromUsers.swift */,
 				A569CF0928C317E400BDE7C4 /* RequestTokenResponse.swift */,
 				A569CF1428C6E9FA00BDE7C4 /* StudentLocationData.swift */,
+				A569CF1828C9679700BDE7C4 /* AddViewController.swift */,
+				A569CF1C28C975B700BDE7C4 /* ConfirmViewController.swift */,
 				A569CF0C28C6A91C00BDE7C4 /* ListViewController.swift */,
 				A569CEF928C2F81000BDE7C4 /* Main.storyboard */,
 				A569CEFC28C2F81500BDE7C4 /* Assets.xcassets */,
@@ -164,7 +173,10 @@
 			files = (
 				A569CF1728C714B400BDE7C4 /* MapViewController.swift in Sources */,
 				A569CF1528C6E9FA00BDE7C4 /* StudentLocationData.swift in Sources */,
+				A569CF1B28C96CE200BDE7C4 /* PostedLocation.swift in Sources */,
+				A569CF1928C9679700BDE7C4 /* AddViewController.swift in Sources */,
 				A569CF0828C304FC00BDE7C4 /* ClientForUdacityLogin.swift in Sources */,
+				A569CF1D28C975B700BDE7C4 /* ConfirmViewController.swift in Sources */,
 				A569CEF428C2F81000BDE7C4 /* AppDelegate.swift in Sources */,
 				A569CF0D28C6A91C00BDE7C4 /* ListViewController.swift in Sources */,
 				A569CF0A28C317E400BDE7C4 /* RequestTokenResponse.swift in Sources */,

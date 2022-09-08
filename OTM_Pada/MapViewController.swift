@@ -51,10 +51,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         UdacityClient.logout(completion: self.handleLogoutRequest(success:error:))
     }
     
-    
+    // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
+    // and https://knowledge.udacity.com/questions/897042
     class StudentsLocationArray {
         static var students = [Locations]()
     }
+    
     func getStudentsPins() {
         let annotations = [MKPointAnnotation]()
         for student in StudentsLocationArray.students {
@@ -70,6 +72,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         DataClient.getStudentLocations { (locations, error) in
             if error == nil {
                 DispatchQueue.main.async {
+                    StudentsLocationArray.students = locations ?? []
                     self.getStudentsPins()
                 }
             } else {
