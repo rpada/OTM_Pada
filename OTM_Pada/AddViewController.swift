@@ -57,8 +57,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     private func geocodePosition(newLocation: String) {
         CLGeocoder().geocodeAddressString(newLocation) { (newMarker, error) in
             if let error = error {
-                self.showAlertAction(title: "Please include 'http://' in your link.", message: "Invalid URL")
-                print("Location not found.")
+                self.showAlertAction(title: "Error", message: "Invalid URL")
             } else {
                 var location: CLLocation?
                 
@@ -70,7 +69,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
                     print("Success")
                     self.performSegue(withIdentifier: "toMap", sender: newLocation)
                 } else {
-                    self.showAlertAction(title: "Please include 'http://' in your link.", message: "Invalid URL")
+                    self.showAlertAction(title: "Error", message: "Invalid URL")
                     print("There was an error.")
                 }
             }
