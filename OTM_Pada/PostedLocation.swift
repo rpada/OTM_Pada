@@ -10,4 +10,5 @@ import Foundation
 struct PostedLocation: Codable {
     let createdAt: String?
     let objectId: String?
+    let statusCode: Int?
 }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct StudentLocationData: Codable {
+struct StudentLocationData: Decodable {
     let results: [Locations]
 }

@@ -23,7 +23,8 @@
 		A569CF1728C714B400BDE7C4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1628C714B400BDE7C4 /* MapViewController.swift */; };
 		A569CF1928C9679700BDE7C4 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1828C9679700BDE7C4 /* AddViewController.swift */; };
 		A569CF1B28C96CE200BDE7C4 /* PostedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1A28C96CE200BDE7C4 /* PostedLocation.swift */; };
-		A569CF1D28C975B700BDE7C4 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1C28C975B700BDE7C4 /* ConfirmViewController.swift */; };
+		A569CF1F28CAFDCA00BDE7C4 /* ConfirmLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1E28CAFDCA00BDE7C4 /* ConfirmLocationViewController.swift */; };
+		A569CF2128CAFE6B00BDE7C4 /* UpdatedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF2028CAFE6B00BDE7C4 /* UpdatedLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +46,8 @@
 		A569CF1628C714B400BDE7C4 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		A569CF1828C9679700BDE7C4 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		A569CF1A28C96CE200BDE7C4 /* PostedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostedLocation.swift; sourceTree = "<group>"; };
-		A569CF1C28C975B700BDE7C4 /* ConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
+		A569CF1E28CAFDCA00BDE7C4 /* ConfirmLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLocationViewController.swift; sourceTree = "<group>"; };
+		A569CF2028CAFE6B00BDE7C4 /* UpdatedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				A569CEF528C2F81000BDE7C4 /* SceneDelegate.swift */,
 				A569CEF728C2F81000BDE7C4 /* LoginViewController.swift */,
 				A569CF0728C304FC00BDE7C4 /* ClientForUdacityLogin.swift */,
+				A569CF2028CAFE6B00BDE7C4 /* UpdatedLocation.swift */,
 				A569CF1028C6BC4600BDE7C4 /* Locations.swift */,
 				A569CF0E28C6B93900BDE7C4 /* ClientForStudentInfo.swift */,
 				A569CF1A28C96CE200BDE7C4 /* PostedLocation.swift */,
@@ -90,7 +93,7 @@
 				A569CF0928C317E400BDE7C4 /* RequestTokenResponse.swift */,
 				A569CF1428C6E9FA00BDE7C4 /* StudentLocationData.swift */,
 				A569CF1828C9679700BDE7C4 /* AddViewController.swift */,
-				A569CF1C28C975B700BDE7C4 /* ConfirmViewController.swift */,
+				A569CF1E28CAFDCA00BDE7C4 /* ConfirmLocationViewController.swift */,
 				A569CF0C28C6A91C00BDE7C4 /* ListViewController.swift */,
 				A569CEF928C2F81000BDE7C4 /* Main.storyboard */,
 				A569CEFC28C2F81500BDE7C4 /* Assets.xcassets */,
@@ -176,7 +179,6 @@
 				A569CF1B28C96CE200BDE7C4 /* PostedLocation.swift in Sources */,
 				A569CF1928C9679700BDE7C4 /* AddViewController.swift in Sources */,
 				A569CF0828C304FC00BDE7C4 /* ClientForUdacityLogin.swift in Sources */,
-				A569CF1D28C975B700BDE7C4 /* ConfirmViewController.swift in Sources */,
 				A569CEF428C2F81000BDE7C4 /* AppDelegate.swift in Sources */,
 				A569CF0D28C6A91C00BDE7C4 /* ListViewController.swift in Sources */,
 				A569CF0A28C317E400BDE7C4 /* RequestTokenResponse.swift in Sources */,
@@ -185,6 +187,8 @@
 				A569CF0F28C6B93900BDE7C4 /* ClientForStudentInfo.swift in Sources */,
 				A569CF1128C6BC4600BDE7C4 /* Locations.swift in Sources */,
 				A569CEF628C2F81000BDE7C4 /* SceneDelegate.swift in Sources */,
+				A569CF1F28CAFDCA00BDE7C4 /* ConfirmLocationViewController.swift in Sources */,
+				A569CF2128CAFE6B00BDE7C4 /* UpdatedLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

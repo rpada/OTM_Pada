@@ -73,8 +73,8 @@ class ListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dataCell", for: indexPath)
         // input the data into the cell
         let student = students[indexPath.row]
-        cell.textLabel?.text = "\(student.firstName)" + " " + "\(student.lastName)" // show the data based on the labels
-        cell.detailTextLabel?.text = "\(student.mediaURL )" // show the URL
+        cell.textLabel?.text = "\(String(describing: student.firstName))" + " " + "\(String(describing: student.lastName))" // show the data based on the labels
+        cell.detailTextLabel?.text = "\(String(describing: student.mediaURL) )" // show the URL
         return cell
     }
     
