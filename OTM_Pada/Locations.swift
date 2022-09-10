@@ -9,8 +9,8 @@ import Foundation
 
 struct Locations: Codable {
     
-    let firstName: String?
-    let lastName: String?
+    let firstName: String
+    let lastName: String
     let latitude: Double?
     let longitude: Double?
     let mapString: String?
@@ -31,18 +31,4 @@ struct Locations: Codable {
 }
 struct Results: Codable {
     let results: [Locations]
-}
-
-//https://stackoverflow.com/questions/29673488/return-from-initializer-without-initializing-all-stored-properties
-extension Locations {
-    init(mapString: String, mediaURL: String) {
-        self.mapString = mapString
-        self.mediaURL = mediaURL
-        self.firstName = nil
-        self.lastName = nil
-        self.latitude = nil
-        self.longitude = nil
-        self.objectId = nil
-        self.uniqueKey = nil
-}
 }
