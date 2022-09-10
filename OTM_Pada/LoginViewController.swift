@@ -53,7 +53,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
         
-        //MARK:- Handling requests & responses
         func handleLoginRequest(success: Bool, error: Error?) {
             if success {
                 DispatchQueue.main.async { [self] in
