@@ -76,13 +76,5 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
-    // MARK: Push to Final Add Location screen
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "confirm" {
-            let vc = segue.destination as! ConfirmLocationViewController
-            vc.location = (sender as! Locations)
-        }
-    }
+       
 }
