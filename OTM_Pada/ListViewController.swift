@@ -51,7 +51,6 @@ class ListViewController: UITableViewController {
     }
     
     // MARK: Get list of students
-    // source?
     func generateList() {
         DataClient.getStudentLocations {students, error in
             self.students = students ?? []
