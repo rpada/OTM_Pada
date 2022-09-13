@@ -35,7 +35,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidAppear(true)
         generateMap()
     }
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // from https://knowledge.udacity.com/questions/208820
+        // to make pins look like rubric and open links
+        self.Map.delegate = self
+
+    }
+    // from https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/3283ae8e-5dd5-483b-9c49-2faac7c53276/concepts/fc5df54d-bcd3-4cb4-8476-cc9a922ec21c
     // logout function
     func handleLogoutRequest(success: Bool, error: Error?) {
         if success { // if deleting the session works, dismiss the screen
@@ -46,6 +53,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             showAlertAction(title:"Error", message: "Could not logout. Please try again.")
         }
     }
+    // from https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/3283ae8e-5dd5-483b-9c49-2faac7c53276/concepts/e3b146dd-c487-4915-8d91-7816fe67d243
     // pulling the logout function from the client
     @IBAction func logout(_ sender: Any) {
         UdacityClient.logout(completion: self.handleLogoutRequest(success:error:))
@@ -57,7 +65,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         static var students = [Locations]()
     }
     
-    func getStudentsPins() {
+    // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
+    // and https://knowledge.udacity.com/questions/897042
+    func generatePins() {
         let annotations = [MKPointAnnotation]()
         for student in StudentsLocationArray.students {
           let pin = MKPointAnnotation()
@@ -67,22 +77,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             self.Map.addAnnotation(pin)
         }
     }
-    
+    // help from https://knowledge.udacity.com/questions/897042
     func generateMap() {
         DataClient.getStudentLocations { (locations, error) in
             if error == nil {
                 DispatchQueue.main.async {
                     StudentsLocationArray.students = locations ?? []
-                    self.getStudentsPins()
+                    self.generatePins()
                 }
             } else {
                 self.showAlertAction(title:"Error", message: "Please try again.")
             }
         }
     }
+     
     
-    // MARK: Map view data source
-    
+    // makes the pins look like the ones on the rubric
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseId = "pin"
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
@@ -97,15 +107,25 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         return pinView
     }
-    
+    // from https://knowledge.udacity.com/questions/757434
+    func loadLink(url: String){
+        guard let url = URL(string: url), UIApplication.shared.canOpenURL(url)
+        else {
+            showAlertAction(title: "Invalid URL", message: "This URL is invalid and could not be opened.")
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+// interacting with the map
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
-            if let toOpen = view.annotation?.subtitle! {
-                app.openURL(URL(string: toOpen)!)
+            if let insertedURL = view.annotation?.subtitle! {
+                // from https://knowledge.udacity.com/questions/757434
+                loadLink(url: insertedURL)
             }
         }
     }
-
-}
-
+    
+    }

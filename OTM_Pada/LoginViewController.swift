@@ -43,22 +43,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
         }
     }
-        
+// from https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/3283ae8e-5dd5-483b-9c49-2faac7c53276/concepts/126b0978-f775-480a-bac0-68a1396aa81a
+    // https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/3283ae8e-5dd5-483b-9c49-2faac7c53276/concepts/6acdc289-de30-4f0e-b408-626668c70629
     func handleRequestTokenResponse(success: Bool, error: Error?){
         if success {
-            print(UdacityClient.Auth.tokenRequest)
             DispatchQueue.main.async{
             UdacityClient.login(email: self.Email.text ?? "", password: self.Password.text ?? "", completion: self.handleLoginRequest(success:error:))
+                print(UdacityClient.Auth.tokenRequest)
         }
         }
     }
-        
+       // from https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/3283ae8e-5dd5-483b-9c49-2faac7c53276/concepts/126b0978-f775-480a-bac0-68a1396aa81a
         func handleLoginRequest(success: Bool, error: Error?) {
             if success {
                 DispatchQueue.main.async { [self] in
-                print(UdacityClient.Auth.tokenRequest)
                 performSegue(withIdentifier: "Submit", sender: nil)
-                    self.Spinner.startAnimating()
+                self.Spinner.startAnimating()
+                print(UdacityClient.Auth.tokenRequest)
                 }
             } else {
                 showAlertAction(title:"Error", message: "Incorrect email or password. Please try again.") // error message if your info is wrong
@@ -67,10 +68,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
+    // from https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/3283ae8e-5dd5-483b-9c49-2faac7c53276/concepts/126b0978-f775-480a-bac0-68a1396aa81a
         // login function
     @IBAction func Submit(_ sender: Any) {
-        UdacityClient.login(email: self.Email.text!, password: self.Password.text!, completion: // grabbing fields from the client
-            self.handleLoginRequest(success:error:)) // use handleLoginRequest function
+        UdacityClient.login(email: self.Email.text!, password: self.Password.text!, completion: // grabbing fields
+            self.handleLoginRequest(success:error:))
     }
     
         // from Udacity iOS Development course, Lesson 4 section 12
