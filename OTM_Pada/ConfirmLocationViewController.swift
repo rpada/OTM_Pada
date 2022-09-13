@@ -77,13 +77,11 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
                 DataClient.addStudentLocation(information: studentLocation) { (success, error) in
                     if success {
                         DispatchQueue.main.async {
-                            //    self.setLoading(true)
                             self.dismiss(animated: true, completion: nil)
                         }
                     } else {
                         DispatchQueue.main.async {
-                            self.showAlertAction(title: error?.localizedDescription ?? "", message: "Error")
-                           // self.setLoading(false)
+                            self.showAlertAction(title: "Error", message: "Error")
                         }
                     }
                 }
