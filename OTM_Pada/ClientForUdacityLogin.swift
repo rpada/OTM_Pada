@@ -53,13 +53,13 @@ class UdacityClient {
                 let decoder = JSONDecoder()
                 let responseObject = try decoder.decode(RequestTokenResponse.self, from: newData)
                 Auth.tokenRequest = responseObject.session.id
-//                getUserInformationRequest(completion: { (success, error) in
-//                    if success {
-//                        print("Success.")
-//                    } else {
-//                        print("Massive failure.")
-//                    }
-//                })
+                getLoggedInUserProfile(completion: { (success, error) in
+                    if success {
+                        print("Success.")
+                    } else {
+                        print("Massive failure.")
+                    }
+                })
                 completion(true, nil)
             } catch {
                 completion(false, error)

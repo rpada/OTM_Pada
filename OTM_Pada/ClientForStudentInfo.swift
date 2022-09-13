@@ -115,38 +115,5 @@ class DataClient {
             completion(false, error)
         }
     }
-    class func postStudentLocation(_ location: Locations, completion: @escaping (String?, Error?) -> Void ) {
-        var request = URLRequest(url: Endpoints.postStudentLocation.url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let studentLocation = Locations(objectId: Auth.tokenRequest, uniqueKey: Auth.key, firstName: Auth.firstName, lastName: Auth.lastName, mapString: location.mapString, mediaURL: location.mediaURL, latitude: location.latitude, longitude: location.longitude)
-        let body = try! JSONEncoder().encode(studentLocation)
-        request.httpBody = body
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            var message: String?
-            if error != nil {
-                message = error?.localizedDescription
-                completion(message,error)
-                return
-            }
-            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                if statusCode >= 200 && statusCode < 300 {
-                    message = "Data was added successfully"
-                }
-                if statusCode >= 400 {
-                    message = "Unable to post location"
-                }
-            } else {
-                message = "Internet connection error"
-            }
-            DispatchQueue.main.async {
-                completion(message, nil)
-                print(message!)
-                print(data!)
-            }
-        }
-        task.resume()
-    }
-
 }
 

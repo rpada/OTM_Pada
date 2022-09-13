@@ -71,23 +71,6 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
         MapView.showAnnotations(MapView.annotations, animated: true)
     }
     
-    
-    @IBAction func SubmitButtonPushed(_ sender: Any) {
-        DispatchQueue.main.async {
-            DataClient.postStudentLocation(self.newlocation!, completion: self.postStudentHandler(errorMsg:error:))
-        }
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-    }
-    //MARK:- Handling posting student location response
-    func postStudentHandler(errorMsg: String?, error: Error?) {
-        DispatchQueue.main.async {
-            if error == nil { self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-            } else {
-                self.showAlertAction(title:"", message: "")
-            }
-        }
-    }
-        
     // to make the pin look as it does on the rubric
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             let reuseId = "pin"
