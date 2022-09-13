@@ -218,7 +218,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Submit"/>
                                 <connections>
-                                    <action selector="SubmitButtonPushed:" destination="dG3-b8-0rf" eventType="touchUpInside" id="dpS-hF-kQ0"/>
+                                    <action selector="SubmitButtonPushed:" destination="dG3-b8-0rf" eventType="touchUpInside" id="lKQ-AQ-Aiu"/>
                                 </connections>
                             </button>
                         </subviews>

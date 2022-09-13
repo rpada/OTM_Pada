@@ -11,15 +11,15 @@ import MapKit
 
 class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
     var newlocation: Locations?
-
+    
     @IBOutlet weak var MapView: MKMapView!
     
     // MARK: Life Cycle
     // from https://stackoverflow.com/questions/24195310/how-to-add-an-action-to-a-uialertview-button-using-swift-ios
     
     // stack overflow said to use DispatchQueue: https://stackoverflow.com/questions/58087536/modifications-to-the-layout-engine-must-not-be-performed-from-a-background-thr
-        
-        
+    
+    
     func showAlertAction(title: String, message: String){
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -61,31 +61,52 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
         // similar logic to the map view
         // // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
         // and https://knowledge.udacity.com/questions/897042
-            let annotation = MKPointAnnotation()
-            annotation.title = location.firstName
-            annotation.subtitle = location.mediaURL ?? ""
-            annotation.coordinate = coordination
+        let annotation = MKPointAnnotation()
+        annotation.title = location.firstName
+        annotation.subtitle = location.mediaURL ?? ""
+        annotation.coordinate = coordination
         // from https://knowledge.udacity.com/questions/898371
-            MapView.addAnnotation(annotation)
-            MapView.showAnnotations(MapView.annotations, animated: true)
-        }
-
-        // to make the pin look as it does on the rubric
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let reuseId = "pin"
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-        if pinView == nil {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView!.canShowCallout = true
-            pinView!.pinTintColor = .red
-            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        }
-        else {
-            pinView!.annotation = annotation
-        }
-        return pinView
+        MapView.addAnnotation(annotation)
+        MapView.showAnnotations(MapView.annotations, animated: true)
     }
     
+    
+    @IBAction func SubmitButtonPushed(_ sender: Any) {
+        if let studentLocation = newlocation {
+            if DataClient.Auth.tokenRequest == "" {
+                DataClient.addStudentLocation(information: studentLocation) { (success, error) in
+                    if success {
+                        DispatchQueue.main.async {
+                            //    self.setLoading(true)
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.showAlertAction(title: error?.localizedDescription ?? "", message: "Error")
+                           // self.setLoading(false)
+                        }
+                    }
+                }
+            }
+        }
+        
+        // to make the pin look as it does on the rubric
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            let reuseId = "pin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+            if pinView == nil {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+                pinView!.canShowCallout = true
+                pinView!.pinTintColor = .red
+                pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            }
+            else {
+                pinView!.annotation = annotation
+            }
+            return pinView
+        }
+        
     }
-
-   
+    
+    
+}
