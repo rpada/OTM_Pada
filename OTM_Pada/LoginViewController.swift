@@ -60,6 +60,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 performSegue(withIdentifier: "Submit", sender: nil)
                 self.Spinner.startAnimating()
                 print(UdacityClient.Auth.tokenRequest)
+                print(UdacityClient.Auth.firstName)
                 }
             } else {
                 showAlertAction(title:"Error", message: "Incorrect email or password. Please try again.") // error message if your info is wrong

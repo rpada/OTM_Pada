@@ -15,10 +15,13 @@ class UdacityClient {
 
         case UdacityLogin
         case UdacityLogout
+        case getLoggedInUserProfile
         var urlValue: String {
             switch self {
             case .UdacityLogin: return Endpoints.base + "session"
             case .UdacityLogout: return Endpoints.base + "session"
+            case .getLoggedInUserProfile:
+                return Endpoints.base + "/users/" + Auth.key
             }
         }
         
@@ -78,6 +81,42 @@ class UdacityClient {
             completion(true, nil)
         }
         task.resume()
+    }
+    class func taskForGETRequest<ResponseType: Decodable>(url: URL,  apiType: String, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
+           let task = URLSession.shared.dataTask(with: url) { data, response, error in
+               guard let data = data else {
+                   DispatchQueue.main.async {
+                       completion(nil, error)
+                   }
+                   return
+               }
+               let decoder = JSONDecoder()
+               do {
+                   let responseObject = try decoder.decode(ResponseType.self, from: data)
+                   DispatchQueue.main.async {
+                       completion(responseObject, nil)
+                   }
+                   } catch {
+                       DispatchQueue.main.async {
+                           completion(nil, error)
+                       }
+                   }
+               }
+           task.resume()
+            return task
+        }
+    class func getUsersData(completion: @escaping (Bool, Error?) -> Void) {
+        taskForGETRequest(url: Endpoints.getLoggedInUserProfile.url, apiType: "Udacity", responseType: DataFromUsers.self) { (response, error) in
+            if let response = response {
+                print("First Name : \(response.firstName) && Last Name : \(response.lastName) ")
+                Auth.firstName = response.firstName
+                Auth.lastName = response.lastName
+                completion(true, nil)
+            } else {
+                print("Failed to get user's profile.")
+                completion(false, error)
+            }
+        }
     }
 }
 
