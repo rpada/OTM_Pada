@@ -19,6 +19,7 @@ class ListViewController: UITableViewController {
     override func viewDidLoad() {
     super.viewDidLoad()
     self.generateList()
+   // self.findUsersFullName()
     }
     
     // from https://stackoverflow.com/questions/24195310/how-to-add-an-action-to-a-uialertview-button-using-swift-ios
@@ -71,7 +72,21 @@ class ListViewController: UITableViewController {
         cell.textLabel?.text = "\(String(describing: student.firstName))" + " " + "\(String(describing: student.lastName))" 
         return cell
     }
-    
+//    func findUsersFullName(){
+//            UdacityClient.getPublicUserData(key: Int(UdacityClient.Auth.key) ?? 0) { (user, error) in
+//                guard error == nil else {
+//                    self.showAlertAction(title: "Error", message: "Error")
+//                    print("Failed to fetch profile")
+//                    return
+//                }
+//                guard let user = user else { return }
+//                print ("Success")
+//                UdacityClient.Auth.firstName = user.firstName
+//                UdacityClient.Auth.firstName = user.lastName
+//                print("First Name : \(user.firstName) && Last Name : \(user.lastName)")
+//
+//            }
+//        }
     // from https://knowledge.udacity.com/questions/757434
     func loadLink(url: String){
         guard let url = URL(string: url), UIApplication.shared.canOpenURL(url)

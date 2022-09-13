@@ -33,6 +33,15 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         Location.delegate = self
         Website.delegate = self
+//            UdacityClient.getPublicUserData(key: Int(DataClient.Auth.key) ?? 0) { (user, error) in
+//                guard error == nil else {
+//                    self.showAlertAction(title: "", message: "")
+//                    return
+//                }
+//                guard let user = user else { return }
+//                DataClient.Auth.firstName = user.firstName
+//                DataClient.Auth.firstName = user.lastName
+//            }
             }
     
 // when submit button is pushed

@@ -9,6 +9,10 @@ class UdacityClient {
         static var key = ""
         static var tokenRequest = ""
     }
+    struct Constants {
+        static let ApplicationId = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+        static let APIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+    }
     
     enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1/"
@@ -21,7 +25,7 @@ class UdacityClient {
             case .UdacityLogin: return Endpoints.base + "session"
             case .UdacityLogout: return Endpoints.base + "session"
             case .getLoggedInUserProfile:
-            return Endpoints.base + "users/\(Auth.key)"
+                return Endpoints.base + "/users/" + Auth.key
             }
         }
         
@@ -49,13 +53,13 @@ class UdacityClient {
                 let decoder = JSONDecoder()
                 let responseObject = try decoder.decode(RequestTokenResponse.self, from: newData)
                 Auth.tokenRequest = responseObject.session.id
-                getLoggedInUserProfile(completion: { (success, error) in
-                    if success {
-                        print("Logged in user's profile fetched.")
-                    } else {
-                        print("Massive failure.")
-                    }
-                })
+//                getUserInformationRequest(completion: { (success, error) in
+//                    if success {
+//                        print("Success.")
+//                    } else {
+//                        print("Massive failure.")
+//                    }
+//                })
                 completion(true, nil)
             } catch {
                 completion(false, error)
@@ -90,41 +94,42 @@ class UdacityClient {
         task.resume()
     }
     class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
-           let task = URLSession.shared.dataTask(with: url) { data, response, error in
-               guard let data = data else {
-                   DispatchQueue.main.async {
-                       completion(nil, error)
-                   }
-                   return
-               }
-               let decoder = JSONDecoder()
-               do {
-                   let responseObject = try decoder.decode(ResponseType.self, from: data)
-                   DispatchQueue.main.async {
-                       completion(responseObject, nil)
-                   }
-                   } catch {
+               let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                   guard let data = data else {
                        DispatchQueue.main.async {
                            completion(nil, error)
                        }
+                       return
                    }
-               }
-           task.resume()
-            return task
-        }
-    class func getLoggedInUserProfile(completion: @escaping (Bool, Error?) -> Void) {
-        taskForGETRequest(url: Endpoints.getLoggedInUserProfile.url, responseType: DataFromUsers.self) { (response, error) in
-            if let response = response {
-                Auth.firstName = response.firstName
-                Auth.lastName = response.lastName
-                completion(true, nil)
-            } else {
-                print("Error")
-                completion(false, error)
+                   let range = 5..<data.count
+                   let newData = data.subdata(in: range)
+                   let decoder = JSONDecoder()
+                   do {
+                       let responseObject = try decoder.decode(ResponseType.self, from: data)
+                       DispatchQueue.main.async {
+                           completion(responseObject, nil)
+                       }
+                       } catch {
+                           DispatchQueue.main.async {
+                               completion(nil, error)
+                           }
+                       }
+                   }
+               task.resume()
+                return task
             }
-        }
-    }
-    
+    class func getLoggedInUserProfile(completion: @escaping (Bool, Error?) -> Void) {
+          taskForGETRequest(url: Endpoints.getLoggedInUserProfile.url, responseType: DataFromUsers.self) { (response, error) in
+              if let response = response {
+                  Auth.firstName = response.firstName
+                  Auth.lastName = response.lastName
+                  completion(true, nil)
+              } else {
+                  print("Error")
+                  completion(false, error)
+              }
+          }
+      }
     
 }
 
