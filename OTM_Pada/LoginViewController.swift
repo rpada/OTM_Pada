@@ -59,8 +59,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 DispatchQueue.main.async { [self] in
                 performSegue(withIdentifier: "Submit", sender: nil)
                 self.Spinner.startAnimating()
-                print(UdacityClient.Auth.tokenRequest)
-                print(UdacityClient.Auth.firstName)
                 }
             } else {
                 showAlertAction(title:"Error", message: "Incorrect email or password. Please try again.") // error message if your info is wrong
@@ -69,6 +67,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
+
     // from https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/3283ae8e-5dd5-483b-9c49-2faac7c53276/concepts/126b0978-f775-480a-bac0-68a1396aa81a
         // login function
     @IBAction func Submit(_ sender: Any) {

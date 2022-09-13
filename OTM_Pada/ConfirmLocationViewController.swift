@@ -11,6 +11,7 @@ import MapKit
 
 class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
     var newlocation: Locations?
+    var userdata: DataFromUsers?
     
     @IBOutlet weak var MapView: MKMapView!
     
@@ -62,7 +63,7 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
         // // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
         // and https://knowledge.udacity.com/questions/897042
         let annotation = MKPointAnnotation()
-        annotation.title = location.firstName
+        annotation.title = userdata?.firstName
         annotation.subtitle = location.mediaURL ?? ""
         annotation.coordinate = coordination
         // from https://knowledge.udacity.com/questions/898371
@@ -88,7 +89,7 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
             }
         }
         
-        // to make the pin look as it does on the rubric
+    // to make the pin look as it does on the rubric
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             let reuseId = "pin"
             var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView

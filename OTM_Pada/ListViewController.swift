@@ -60,7 +60,6 @@ class ListViewController: UITableViewController {
             }
         }
     }
-    
     //from Udacity Lession 8.8 Setup the Sent Memes Collection View
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return studentsList.count // get the number of students in the data
