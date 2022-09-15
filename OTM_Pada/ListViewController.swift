@@ -15,9 +15,9 @@ class ListViewController: UITableViewController {
 
         class func sharedInstance() -> StudentsData {
             struct Singleton {
-                var students = Locations()
+                var sharedInstance = Locations()
             }
-            return Singleton.students
+            return Singleton.sharedInstance
         }
 
     }
