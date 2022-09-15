@@ -59,9 +59,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 performSegue(withIdentifier: "Submit", sender: nil)
                 }
             } else {
-                showAlertAction(title:"Error", message: "Incorrect email or password. Please try again.") // error message if your info is wrong
-                DispatchQueue.main.async {
-                }
+                showAlertAction(title:"Error", message: error!.localizedDescription) // error message if your info is wrong
             }
         }
 

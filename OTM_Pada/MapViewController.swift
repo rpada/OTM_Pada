@@ -68,10 +68,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
     // and https://knowledge.udacity.com/questions/897042
     func generatePins() {
+        Map.removeAnnotations(Map.annotations)
         let annotations = [MKPointAnnotation]()
         for student in StudentsLocationArray.students {
           let pin = MKPointAnnotation()
-          pin.title = student.firstName ?? "" + "" + student.lastName ?? ""
+        pin.title = student.firstName + " " + student.lastName
           pin.subtitle = student.mediaURL ?? ""
           pin.coordinate = CLLocationCoordinate2D(latitude: student.latitude ?? 0.0, longitude: student.longitude ?? 0.0)
             self.Map.addAnnotation(pin)

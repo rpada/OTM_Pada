@@ -9,8 +9,20 @@ import Foundation
 import UIKit
 
 class ListViewController: UITableViewController {
+    class StudentsData: NSObject {
+
+        var students = [Locations]()
+
+        class func sharedInstance() -> StudentsData {
+            struct Singleton {
+                var students = Locations()
+            }
+            return Singleton.students
+        }
+
+    }
+   
     var studentsList = [Locations]()
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         // https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/cd890113-636f-474a-8558-8b1a5e633c77/concepts/b6181fb1-c0aa-4a35-9078-3f2e177075ac

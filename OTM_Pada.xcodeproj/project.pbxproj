@@ -25,6 +25,7 @@
 		A569CF1B28C96CE200BDE7C4 /* PostedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1A28C96CE200BDE7C4 /* PostedLocation.swift */; };
 		A569CF1F28CAFDCA00BDE7C4 /* ConfirmLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF1E28CAFDCA00BDE7C4 /* ConfirmLocationViewController.swift */; };
 		A569CF2128CAFE6B00BDE7C4 /* UpdatedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A569CF2028CAFE6B00BDE7C4 /* UpdatedLocation.swift */; };
+		A5C6A86628D2F73C00A0976C /* StudentsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C6A86528D2F73C00A0976C /* StudentsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		A569CF1A28C96CE200BDE7C4 /* PostedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostedLocation.swift; sourceTree = "<group>"; };
 		A569CF1E28CAFDCA00BDE7C4 /* ConfirmLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLocationViewController.swift; sourceTree = "<group>"; };
 		A569CF2028CAFE6B00BDE7C4 /* UpdatedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedLocation.swift; sourceTree = "<group>"; };
+		A5C6A86528D2F73C00A0976C /* StudentsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				A569CEF328C2F81000BDE7C4 /* AppDelegate.swift */,
 				A569CEF528C2F81000BDE7C4 /* SceneDelegate.swift */,
 				A569CEF728C2F81000BDE7C4 /* LoginViewController.swift */,
+				A5C6A86528D2F73C00A0976C /* StudentsData.swift */,
 				A569CF0728C304FC00BDE7C4 /* ClientForUdacityLogin.swift */,
 				A569CF0E28C6B93900BDE7C4 /* ClientForStudentInfo.swift */,
 				A569CF2028CAFE6B00BDE7C4 /* UpdatedLocation.swift */,
@@ -175,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A569CF1728C714B400BDE7C4 /* MapViewController.swift in Sources */,
+				A5C6A86628D2F73C00A0976C /* StudentsData.swift in Sources */,
 				A569CF1528C6E9FA00BDE7C4 /* StudentLocationData.swift in Sources */,
 				A569CF1B28C96CE200BDE7C4 /* PostedLocation.swift in Sources */,
 				A569CF1928C9679700BDE7C4 /* AddViewController.swift in Sources */,

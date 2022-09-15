@@ -58,6 +58,7 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
     }
     // displaying the locations on the actual map
     private func showLocations(location: UpdatedLocation) {
+        MapView.removeAnnotations(MapView.annotations)
         var annotations = [MKPointAnnotation]()
         guard let addedLocation = newlocation else { return }
         let coordination = CLLocationCoordinate2D(latitude: addedLocation.latitude, longitude: addedLocation.longitude)

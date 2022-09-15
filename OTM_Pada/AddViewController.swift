@@ -65,8 +65,10 @@ class AddViewController: UIViewController, UITextFieldDelegate {
    
     // https://developer.apple.com/documentation/corelocation/clgeocoder/1423509-geocodeaddressstring
     func geocode(_ location: Locations) {
+        self.Spinner.startAnimating()
         CLGeocoder().geocodeAddressString(location.mapString) { [self] (placemark, error) in
             guard error == nil else {
+                Spinner.stopAnimating()
                 let newLocation = self.Location.text
                 let url = self.Website.text!
                 // if any of these fields are empty, push an error message
@@ -78,10 +80,10 @@ class AddViewController: UIViewController, UITextFieldDelegate {
                     // if the app cant find the location, an error is sent
                 return
             }
+            Spinner.stopAnimating()
             // similar logic to the map view
             // // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
             // and https://knowledge.udacity.com/questions/897042
-            self.Spinner.startAnimating()
             let coordinates = placemark?.first?.location?.coordinate
             var studentLocation = location
             studentLocation.longitude = coordinates!.longitude
