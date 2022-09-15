@@ -18,10 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         Email.delegate = self
         Password.delegate = self
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
 
           super.viewWillDisappear(animated)

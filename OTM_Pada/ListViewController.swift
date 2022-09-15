@@ -9,25 +9,12 @@ import Foundation
 import UIKit
 
 class ListViewController: UITableViewController {
-    class StudentsData: NSObject {
-
-        var students = [Locations]()
-
-        class func sharedInstance() -> StudentsData {
-            struct Singleton {
-                var sharedInstance = Locations()
-            }
-            return Singleton.sharedInstance
-        }
-
-    }
-   
-    var studentsList = [Locations]()
+ 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         // https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/cd890113-636f-474a-8558-8b1a5e633c77/concepts/b6181fb1-c0aa-4a35-9078-3f2e177075ac
         DataClient.getStudentLocations {students, error in
-            self.studentsList = students ?? []
+            StudentsData.sharedInstance().students = students ?? []
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -70,12 +57,12 @@ class ListViewController: UITableViewController {
  
     //from Udacity Lession 8.8 Setup the Sent Memes Collection View
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return studentsList.count // get the number of students in the data
+        return StudentsData.sharedInstance().students.count // get the number of students in the data
     }
     //from Udacity Lession 8.8 Setup the Sent Memes Collection View
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dataCell", for: indexPath)
-        let student = studentsList[indexPath.row]
+        let student = StudentsData.sharedInstance().students[indexPath.row]
         cell.textLabel?.text = "\(String(describing: student.firstName))" + " " + "\(String(describing: student.lastName))" 
         return cell
     }
@@ -90,8 +77,9 @@ class ListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let student = studentsList[indexPath.row]
+        let student = StudentsData.sharedInstance().students[indexPath.row]
         // from https://knowledge.udacity.com/questions/757434
         loadLink(url: student.mediaURL ?? "")
 }
 }
+

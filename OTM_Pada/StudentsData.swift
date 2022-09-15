@@ -6,16 +6,16 @@
 //
 
 import Foundation
-//
-//class StudentsData: NSObject {
-//
-//    var students = [Locations]()
-//
-//    class func sharedInstance() -> StudentsData {
-//        struct Singleton {
-//            static var sharedInstance = students
-//        }
-//        return Singleton.sharedInstance
-//    }
-//
-//}
+
+// from my first project submission feedback and with help from https://knowledge.udacity.com/questions/900468
+class StudentsData: NSObject {
+    
+    var students = [Locations]()
+    
+    class func sharedInstance() -> StudentsData {
+        struct Singleton {
+            static var sharedInstance = StudentsData()
+        }
+        return Singleton.sharedInstance
+    }
+}

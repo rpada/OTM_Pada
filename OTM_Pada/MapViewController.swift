@@ -11,7 +11,6 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
-    var locations = [Locations]()
     var annotations = [MKPointAnnotation]()
     
     @IBOutlet weak var Map: MKMapView!
@@ -61,16 +60,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
     // and https://knowledge.udacity.com/questions/897042
-    class StudentsLocationArray {
-        static var students = [Locations]()
-    }
+  //  class StudentsLocationArray {
+  //      static var students = [Locations]()
+  //  }
     
     // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
     // and https://knowledge.udacity.com/questions/897042
     func generatePins() {
         Map.removeAnnotations(Map.annotations)
         let annotations = [MKPointAnnotation]()
-        for student in StudentsLocationArray.students {
+        for student in StudentsData.sharedInstance().students {
           let pin = MKPointAnnotation()
         pin.title = student.firstName + " " + student.lastName
           pin.subtitle = student.mediaURL ?? ""
@@ -83,7 +82,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         DataClient.getStudentLocations { (locations, error) in
             if error == nil {
                 DispatchQueue.main.async {
-                    StudentsLocationArray.students = locations ?? []
+                    StudentsData.sharedInstance().students = locations ?? []
                     self.generatePins()
                 }
             } else {
