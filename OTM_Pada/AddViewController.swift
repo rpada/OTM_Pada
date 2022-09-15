@@ -15,6 +15,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var Location: UITextField!
     @IBOutlet weak var Website: UITextField!
     @IBOutlet weak var Submit: UIButton!
+    @IBOutlet weak var Spinner: UIActivityIndicatorView!
     // from https://stackoverflow.com/questions/24195310/how-to-add-an-action-to-a-uialertview-button-using-swift-ios
     
     // stack overflow said to use DispatchQueue: https://stackoverflow.com/questions/58087536/modifications-to-the-layout-engine-must-not-be-performed-from-a-background-thr
@@ -33,15 +34,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         Location.delegate = self
         Website.delegate = self
-//            UdacityClient.getPublicUserData(key: Int(DataClient.Auth.key) ?? 0) { (user, error) in
-//                guard error == nil else {
-//                    self.showAlertAction(title: "", message: "")
-//                    return
-//                }
-//                guard let user = user else { return }
-//                DataClient.Auth.firstName = user.firstName
-//                DataClient.Auth.firstName = user.lastName
-//            }
+        self.Spinner.stopAnimating()
             }
     
 // when submit button is pushed
@@ -52,18 +45,17 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             return
         }
         initializeNewObject()
-        
     }
     
     func initializeNewObject (){
         //and creates the new object for the new student inputted data
-        let studentLocation = Locations(objectId:
-        DataClient.Auth.tokenRequest,
-        uniqueKey: DataClient.Auth.key,
-        firstName: DataClient.Auth.firstName,
-        lastName: DataClient.Auth.lastName,
+        let studentLocation = Locations(
+        firstName: UdacityClient.Auth.firstName,
+        lastName: UdacityClient.Auth.lastName,
         mapString: Location.text ?? "",
         mediaURL: Website.text ?? "",
+        objectId: DataClient.Auth.tokenRequest,
+        uniqueKey: UdacityClient.Auth.key,
         latitude: 0,
         longitude: 0
         )
@@ -71,9 +63,8 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         geocode(studentLocation)
     }
    
-    
+    // https://developer.apple.com/documentation/corelocation/clgeocoder/1423509-geocodeaddressstring
     func geocode(_ location: Locations) {
-    
         CLGeocoder().geocodeAddressString(location.mapString) { [self] (placemark, error) in
             guard error == nil else {
                 let newLocation = self.Location.text
@@ -90,6 +81,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             // similar logic to the map view
             // // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
             // and https://knowledge.udacity.com/questions/897042
+            self.Spinner.startAnimating()
             let coordinates = placemark?.first?.location?.coordinate
             var studentLocation = location
             studentLocation.longitude = coordinates!.longitude

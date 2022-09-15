@@ -13,8 +13,13 @@ struct Session: Codable {
     let id: String
     let expiration: String
 }
+struct Account: Codable {
+    let registered: Bool
+    let key: String
+}
 
 struct RequestTokenResponse: Codable {
     let session: Session
+    let account: Account
     
 }

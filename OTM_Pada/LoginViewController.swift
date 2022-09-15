@@ -9,7 +9,6 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var Spinner: UIActivityIndicatorView!
     @IBOutlet weak var Email: UITextField!
     @IBOutlet weak var Password: UITextField!
     @IBOutlet weak var Submit: UIButton!
@@ -21,7 +20,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        Spinner.startAnimating()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,18 +54,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
        // from https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/3283ae8e-5dd5-483b-9c49-2faac7c53276/concepts/126b0978-f775-480a-bac0-68a1396aa81a
         func handleLoginRequest(success: Bool, error: Error?) {
             if success {
+                grabInfo()
                 DispatchQueue.main.async { [self] in
                 performSegue(withIdentifier: "Submit", sender: nil)
-                self.Spinner.startAnimating()
                 }
             } else {
                 showAlertAction(title:"Error", message: "Incorrect email or password. Please try again.") // error message if your info is wrong
                 DispatchQueue.main.async {
-                self.Spinner.stopAnimating()
                 }
             }
         }
 
+    func grabInfo(){
+        UdacityClient.grabUserInfo(completion: { (success, error) in
+            if success {
+                print("Success")
+            } else {
+                print("Failure!")
+            }
+        })
+    }
     // from https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/3283ae8e-5dd5-483b-9c49-2faac7c53276/concepts/126b0978-f775-480a-bac0-68a1396aa81a
         // login function
     @IBAction func Submit(_ sender: Any) {

@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
+    
     var newlocation: Locations?
     var userdata: DataFromUsers?
     
@@ -30,6 +31,7 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.MapView.delegate = self
@@ -41,12 +43,12 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
     func pullLocation(){
         if let studentLocation = newlocation {
             let studentLocation = UpdatedLocation(
-                objectId: studentLocation.objectId ,
-                uniqueKey: studentLocation.uniqueKey,
-                firstName: studentLocation.firstName,
-                lastName: studentLocation.lastName,
-                mapString: studentLocation.mapString,
-                mediaURL: studentLocation.mediaURL,
+                firstName: studentLocation.mapString,
+                lastName: studentLocation.mediaURL,
+                mapString: studentLocation.objectId ,
+                mediaURL: studentLocation.uniqueKey,
+                objectId: studentLocation.firstName,
+                uniqueKey: studentLocation.lastName,
                 latitude: studentLocation.latitude,
                 longitude: studentLocation.longitude
             )
@@ -70,23 +72,30 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate{
         MapView.addAnnotation(annotation)
         MapView.showAnnotations(MapView.annotations, animated: true)
     }
-    
-    // to make the pin look as it does on the rubric
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            let reuseId = "pin"
-            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-            if pinView == nil {
-                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-                pinView!.canShowCallout = true
-                pinView!.pinTintColor = .red
-                pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+    // submit button pressed
+    @IBAction func Submit(_ sender: Any) {
+        if let updatedLocation = newlocation {
+            if DataClient.Auth.tokenRequest == "" {
+                DataClient.addLocation(information: updatedLocation) { (success, error) in
+                    if success {
+                        DispatchQueue.main.async {
+                            // https://stackoverflow.com/questions/28760541/programmatically-go-back-to-previous-viewcontroller-in-swift
+                            func goBack() {
+                                _ = self.navigationController?.popViewController(animated: true)
+                                _ = self.navigationController?.popViewController(animated: true)
+                                return
+                            }
+                            goBack()
+                            return
+                        }
+                    }
+                    if (error != nil) {
+                        DispatchQueue.main.async {
+                            self.showAlertAction(title: "Error!", message: "Something went wrong. Please try again.")
+                        }
+                    }
+                }
             }
-            else {
-                pinView!.annotation = annotation
-            }
-            return pinView
         }
-        
     }
-    
-
+}

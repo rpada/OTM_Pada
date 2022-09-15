@@ -13,15 +13,19 @@ class ListViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.generateList()
+        // https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/cd890113-636f-474a-8558-8b1a5e633c77/concepts/b6181fb1-c0aa-4a35-9078-3f2e177075ac
+        DataClient.getStudentLocations {students, error in
+            self.studentsList = students ?? []
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func viewDidLoad() {
     super.viewDidLoad()
-    self.generateList()
-   // self.findUsersFullName()
     }
-    
+  
     // from https://stackoverflow.com/questions/24195310/how-to-add-an-action-to-a-uialertview-button-using-swift-ios
     
     // stack overflow said to use DispatchQueue: https://stackoverflow.com/questions/58087536/modifications-to-the-layout-engine-must-not-be-performed-from-a-background-thr
@@ -51,16 +55,7 @@ class ListViewController: UITableViewController {
     @IBAction func logout(_ sender: Any) {
         UdacityClient.logout(completion: self.handleLogoutRequest(success:error:))
     }
-    
-    // similar logic to pulling the login func from the client
-    func generateList() {
-        DataClient.getStudentLocations {students, error in
-            self.studentsList = students ?? []
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
+ 
     //from Udacity Lession 8.8 Setup the Sent Memes Collection View
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return studentsList.count // get the number of students in the data
@@ -72,21 +67,6 @@ class ListViewController: UITableViewController {
         cell.textLabel?.text = "\(String(describing: student.firstName))" + " " + "\(String(describing: student.lastName))" 
         return cell
     }
-//    func findUsersFullName(){
-//            UdacityClient.getPublicUserData(key: Int(UdacityClient.Auth.key) ?? 0) { (user, error) in
-//                guard error == nil else {
-//                    self.showAlertAction(title: "Error", message: "Error")
-//                    print("Failed to fetch profile")
-//                    return
-//                }
-//                guard let user = user else { return }
-//                print ("Success")
-//                UdacityClient.Auth.firstName = user.firstName
-//                UdacityClient.Auth.firstName = user.lastName
-//                print("First Name : \(user.firstName) && Last Name : \(user.lastName)")
-//
-//            }
-//        }
     // from https://knowledge.udacity.com/questions/757434
     func loadLink(url: String){
         guard let url = URL(string: url), UIApplication.shared.canOpenURL(url)

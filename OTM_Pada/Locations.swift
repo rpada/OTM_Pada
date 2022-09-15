@@ -9,12 +9,12 @@ import Foundation
 
 struct Locations: Codable {
     
-    var objectId: String
-    var uniqueKey: String
     var firstName: String
     var lastName: String
     var mapString: String
     var mediaURL: String
+    var objectId: String
+    var uniqueKey: String
     var latitude: Double
     var longitude: Double
     
