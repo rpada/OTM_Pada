@@ -20,15 +20,12 @@ class DataClient {
         case newLocation
         case studentLocations
         case postStudentLocation
-        case getLoggedInUserProfile
         var urlValue: String {
             switch self {
             case .newLocation:
                 return Endpoints.base + "/StudentLocation"
             case .studentLocations: return Endpoints.base + "StudentLocation?limit=100&order=-updatedAt"
             case .postStudentLocation: return Endpoints.base + "StudentLocation"
-            case .getLoggedInUserProfile:
-                return Endpoints.base + "/users/" + Auth.key
             }
         }
         
@@ -77,22 +74,6 @@ class DataClient {
         }
 }
 
-       class func getLoggedInUserProfile(completion: @escaping (Bool, Error?) -> Void) {
-          taskForGETRequest(url: Endpoints.getLoggedInUserProfile.url, responseType: DataFromUsers.self) { (response, error) in
-                 if let response = response {
-                     Auth.firstName = response.firstName
-                     Auth.lastName = response.lastName
-                     // test
-                     print("\(Auth.firstName)\(Auth.lastName)")
-                     completion(true, nil)
-                 } else {
-                     // test
-                     print("Error")
-                     completion(false, error)
-                 }
-             }
-         }
-    
     //taskForPOSTRequest function is from https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/cd890113-636f-474a-8558-8b1a5e633c77/concepts/70ad5b51-cdcf-43d5-97fa-5ee5fe4c7601
 
     // and https://classroom.udacity.com/nanodegrees/nd003/parts/2b0b0f37-f10b-41dc-abb4-a346f293027a/modules/4b26ca51-f2e8-45a3-92df-a1797f597a19/lessons/cd890113-636f-474a-8558-8b1a5e633c77/concepts/cf2fca61-2751-4c2e-963e-f55af30c0204
