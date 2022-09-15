@@ -19,3 +19,4 @@ class StudentsData: NSObject {
         return Singleton.sharedInstance
     }
 }
+

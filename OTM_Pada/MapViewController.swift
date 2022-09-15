@@ -60,10 +60,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
     // and https://knowledge.udacity.com/questions/897042
-  //  class StudentsLocationArray {
-  //      static var students = [Locations]()
-  //  }
-    
+ 
     // with help from Udacity mentors https://knowledge.udacity.com/questions/897019
     // and https://knowledge.udacity.com/questions/897042
     func generatePins() {
